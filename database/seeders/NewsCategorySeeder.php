@@ -1,9 +1,9 @@
 <?php
 
-namespace Novius\LaravelNovaNews\Database\Seeders;
+namespace Novius\LaravelFilamentNews\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Novius\LaravelNovaNews\Models\NewsCategory;
+use Novius\LaravelFilamentNews\Models\NewsCategory;
 
 class NewsCategorySeeder extends Seeder
 {

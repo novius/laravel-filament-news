@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nova_news_tags', function (Blueprint $table) {
+        Schema::create('filament_news_tags', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug');
@@ -23,18 +23,18 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('nova_news_post_tag', function (Blueprint $table) {
+        Schema::create('filament_news_post_tag', function (Blueprint $table) {
             $table->unsignedBigInteger('news_post_id');
             $table->unsignedBigInteger('news_tag_id');
 
             $table->foreign('news_post_id')
                 ->references('id')
-                ->on('nova_news_posts')
+                ->on('filament_news_posts')
                 ->cascadeOnDelete();
 
             $table->foreign('news_tag_id')
                 ->references('id')
-                ->on('nova_news_tags')
+                ->on('filament_news_tags')
                 ->cascadeOnDelete();
 
             $table->primary(['news_post_id', 'news_tag_id']);
@@ -46,7 +46,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nova_news_post_tag');
-        Schema::dropIfExists('nova_news_tags');
+        Schema::dropIfExists('filament_news_post_tag');
+        Schema::dropIfExists('filament_news_tags');
     }
 };

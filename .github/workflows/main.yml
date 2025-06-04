@@ -12,104 +12,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.2'
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
 
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Login to Laravel Nova
-      run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_LICENSE_KEY}
-      env:
-        NOVA_USERNAME: ${{ secrets.NOVA_USERNAME }}
-        NOVA_LICENSE_KEY: ${{ secrets.NOVA_LICENSE_KEY }}
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-    - name: Cache composer dependencies
-      uses: actions/cache@v3
-      with:
-        path: vendor
-        key: composer-${{ hashFiles('composer.lock') }}
-
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-    - name: Lint PHP code via Laravel Pint
-      run: composer run-script lint
-
-  test-app:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        operating-system: ['ubuntu-latest']
-        php-versions: ['8.2', '8.3', '8.4']
-        laravel: [ 10.*, 11.*, 12.* ]
-        dependency-version: [ prefer-stable ]
-        include:
-          - laravel: 12.*
-            testbench: 10.*
-            carbon: 3.*
-          - laravel: 11.*
-            testbench: 9.*
-            carbon: 2.*
-          - laravel: 10.*
-            testbench: 8.*
-            carbon: 2.*
-
-    name: test - P${{ matrix.php-versions }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
-
-    steps:
-    - uses: shivammathur/setup-php@v2
-      with:
-          php-version: ${{ matrix.php-versions }}
-
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Login to Laravel Nova
-      run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_LICENSE_KEY}
-      env:
-        NOVA_USERNAME: ${{ secrets.NOVA_USERNAME }}
-        NOVA_LICENSE_KEY: ${{ secrets.NOVA_LICENSE_KEY }}
-
-    - name: Cache composer dependencies
-      uses: actions/cache@v3
-      with:
-        path: vendor
-        key: composer-${{ hashFiles('composer.lock') }}
-
-    - name: Install Dependencies
-      run: |
-        composer require "laravel/framework:${{ matrix.laravel }}" "nesbot/carbon:${{ matrix.carbon }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-        composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
-
-    - name: Run tests
-      run: composer test
+      - name: Lint PHP code via Laravel Pint
+        run: composer run-script lint
 
   phpstan:
-
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
-        operating-system: ['ubuntu-latest']
         php-versions: ['8.2', '8.3', '8.4']
         laravel: [ 11.*, 12.* ]
-        nova: [ 4.*, 5.* ]
-        dependency-version: [ prefer-stable ]
         include:
           - laravel: 12.*
-            testbench: 10.*
             carbon: 3.*
+            testbench: 10.*
           - laravel: 11.*
-            testbench: 9.*
             carbon: 2.*
-        exclude:
-          - laravel: 12.*
-            nova: 4.*
+            testbench: 9.*
 
-    name: phpstan - P${{ matrix.php-versions }} - L${{ matrix.laravel }} - N${{ matrix.nova }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
+    name: phpstan - P${{ matrix.php-versions }} - L${{ matrix.laravel }}
 
     steps:
       - uses: shivammathur/setup-php@v2
@@ -119,22 +51,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Cache composer dependencies
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: composer-${{ hashFiles('composer.lock') }}
-
-      - name: Login to Laravel Nova
-        run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_LICENSE_KEY}
-        env:
-          NOVA_USERNAME: ${{ secrets.NOVA_USERNAME }}
-          NOVA_LICENSE_KEY: ${{ secrets.NOVA_LICENSE_KEY }}
-
       - name: Install Dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "nesbot/carbon:${{ matrix.carbon }}" "orchestra/testbench:${{ matrix.testbench }}" "laravel/nova:${{ matrix.nova }}" --no-interaction --no-update
-          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
+          composer require "laravel/framework:${{ matrix.laravel }}" "nesbot/carbon:${{ matrix.carbon }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: PHPStan Static Analysis
+      - name: PhPStan
         run: composer run-script phpstan

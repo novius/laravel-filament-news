@@ -1,8 +1,10 @@
 <?php
 
+namespace Novius\LaravelFilamentNews\Tests;
+
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Novius\LaravelNovaNews\Models\NewsPost;
+use Novius\LaravelFilamentNews\Models\NewsPost;
 use Novius\LaravelPublishable\Enums\PublicationStatus;
 
 uses(RefreshDatabase::class);

@@ -1,24 +1,23 @@
 <?php
 
-namespace Novius\LaravelNovaNews\Models;
+namespace Novius\LaravelFilamentNews\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Novius\LaravelFilamentNews\Database\Factories\NewsTagFactory;
+use Novius\LaravelFilamentNews\Facades\News;
 use Novius\LaravelLinkable\Configs\LinkableConfig;
 use Novius\LaravelLinkable\Traits\Linkable;
-use Novius\LaravelNovaNews\Database\Factories\NewsTagFactory;
-use Novius\LaravelNovaNews\NovaNews;
 use Novius\LaravelTranslatable\Traits\Translatable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 /**
- * Class Tag
- *
  * @property int $id
  * @property string $name
  * @property string $slug
@@ -36,21 +35,19 @@ class NewsTag extends Model
     use SoftDeletes;
     use Translatable;
 
-    protected $table = 'nova_news_tags';
+    protected $table = 'filament_news_tags';
 
-    protected $fillable = [
-        'name',
-    ];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
-    protected static function booted()
+    protected static function booted(): void
     {
-        static::saving(function ($tag) {
-            $locales = config('laravel-nova-news.locales', []);
+        static::saving(static function ($tag) {
+            $locales = config('laravel-filament-news.locales', []);
 
             if (empty($tag->locale) && count($locales) === 1) {
                 $tag->locale = array_key_first($locales);
@@ -67,8 +64,8 @@ class NewsTag extends Model
 
     public function linkableConfig(): ?LinkableConfig
     {
-        $route = config('laravel-nova-news.front_routes_name.tag');
-        $routeParameterName = config('laravel-nova-news.front_routes_parameters.tag');
+        $route = config('laravel-filament-news.front_routes_name.tag');
+        $routeParameterName = config('laravel-filament-news.front_routes_parameters.tag');
         if (empty($routeParameterName) && empty($route)) {
             return null;
         }
@@ -78,7 +75,7 @@ class NewsTag extends Model
                 routeName: $route,
                 routeParameterName: $routeParameterName,
                 optionLabel: 'name',
-                optionGroup: trans('laravel-nova-news::crud-tag.resource_label'),
+                optionGroup: trans('laravel-filament-news::crud-tag.resource_label'),
                 resolveQuery: function (Builder|NewsCategory $query) {
                     $query->where('locale', app()->currentLocale());
                 },
@@ -96,9 +93,9 @@ class NewsTag extends Model
             ->doNotGenerateSlugsOnUpdate();
     }
 
-    public function posts()
+    public function posts(): BelongsToMany
     {
-        return $this->belongsToMany(NovaNews::getPostModel(), 'nova_news_post_tag', 'news_tag_id', 'news_post_id');
+        return $this->belongsToMany(News::getPostModel(), 'filament_news_post_tag', 'news_tag_id', 'news_post_id');
     }
 
     /**

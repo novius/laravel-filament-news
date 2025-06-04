@@ -1,5 +1,5 @@
 <?php
 
-use Novius\LaravelNovaNews\Tests\TestCase;
+namespace Novius\LaravelFilamentNews\Tests;
 
 uses(TestCase::class)->in(__DIR__);

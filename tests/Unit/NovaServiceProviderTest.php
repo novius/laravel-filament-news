@@ -1,22 +1,14 @@
 <?php
 
+namespace Novius\LaravelFilamentNews\Tests;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Laravel\Nova\Nova;
-use Novius\LaravelNovaNews\LaravelNovaNewsServiceProvider;
-use Novius\LaravelNovaNews\Nova\NewsCategory;
-use Novius\LaravelNovaNews\Nova\NewsPost;
-use Novius\LaravelNovaNews\Nova\NewsTag;
+use Novius\LaravelFilamentNews\LaravelFilamentNewsServiceProvider;
 
 uses(RefreshDatabase::class);
 
-test('It creates the Nova Service Provider', function () {
-    $provider = new LaravelNovaNewsServiceProvider($this->app);
+test('It creates the Filament Service Provider', function () {
+    $provider = new LaravelFilamentNewsServiceProvider($this->app);
 
-    expect($provider)->toBeInstanceOf(LaravelNovaNewsServiceProvider::class);
-});
-
-test('It registers the resources', function () {
-    expect(in_array(NewsPost::class, Nova::$resources))->toBeTrue();
-    expect(in_array(NewsCategory::class, Nova::$resources))->toBeTrue();
-    expect(in_array(NewsTag::class, Nova::$resources))->toBeTrue();
+    expect($provider)->toBeInstanceOf(LaravelFilamentNewsServiceProvider::class);
 });

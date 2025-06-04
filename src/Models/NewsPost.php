@@ -1,8 +1,7 @@
 <?php
 
-namespace Novius\LaravelNovaNews\Models;
+namespace Novius\LaravelFilamentNews\Models;
 
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,13 +11,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use Novius\LaravelFilamentNews\Database\Factories\NewsPostFactory;
+use Novius\LaravelFilamentNews\Facades\News;
 use Novius\LaravelLinkable\Configs\LinkableConfig;
 use Novius\LaravelLinkable\Traits\Linkable;
 use Novius\LaravelMeta\Enums\IndexFollow;
 use Novius\LaravelMeta\MetaModelConfig;
 use Novius\LaravelMeta\Traits\HasMeta;
-use Novius\LaravelNovaNews\Database\Factories\NewsPostFactory;
-use Novius\LaravelNovaNews\NovaNews;
 use Novius\LaravelPublishable\Enums\PublicationStatus;
 use Novius\LaravelPublishable\Traits\Publishable;
 use Novius\LaravelTranslatable\Traits\Translatable;
@@ -26,8 +25,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 /**
- * Class Post
- *
  * @property int $id
  * @property string $title
  * @property string $slug
@@ -73,7 +70,7 @@ use Spatie\Sluggable\SlugOptions;
  * @method static Builder|NewsPost query()
  * @method static Builder|NewsPost withLocale(?string $locale)
  *
- * @mixin Eloquent
+ * @mixin Model
  */
 class NewsPost extends Model
 {
@@ -85,7 +82,7 @@ class NewsPost extends Model
     use SoftDeletes;
     use Translatable;
 
-    protected $table = 'nova_news_posts';
+    protected $table = 'filament_news_posts';
 
     protected $guarded = ['id'];
 
@@ -95,15 +92,13 @@ class NewsPost extends Model
 
     protected static function booted(): void
     {
-        static::saving(static function ($post) {
+        static::saving(static function (NewsPost $post) {
             if (empty($post->preview_token)) {
                 $post->preview_token = Str::random();
             }
 
-            $locales = config('laravel-nova-news.locales', []);
-
-            if (empty($post->locale) && count($locales) === 1) {
-                $post->locale = array_key_first($locales);
+            if (empty($post->locale) && News::locales()->count() === 1) {
+                $post->locale = News::locales()->first()->code;
             }
         });
     }
@@ -143,8 +138,8 @@ class NewsPost extends Model
 
     public function linkableConfig(): ?LinkableConfig
     {
-        $route = config('laravel-nova-news.front_routes_name.post');
-        $routeParameterName = config('laravel-nova-news.front_routes_parameters.post');
+        $route = config('laravel-filament-news.front_routes_name.post');
+        $routeParameterName = config('laravel-filament-news.front_routes_parameters.post');
         if (empty($routeParameterName) && empty($route)) {
             return null;
         }
@@ -154,7 +149,7 @@ class NewsPost extends Model
                 routeName: $route,
                 routeParameterName: $routeParameterName,
                 optionLabel: 'title',
-                optionGroup: trans('laravel-nova-news::crud-post.resource_label'),
+                optionGroup: trans('laravel-filament-news::crud-post.resource_label'),
                 resolveQuery: function (Builder|NewsPost $query) {
                     $query->where('locale', app()->currentLocale());
                 },
@@ -175,12 +170,12 @@ class NewsPost extends Model
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(NovaNews::getCategoryModel(), 'nova_news_post_category', 'news_post_id', 'news_category_id');
+        return $this->belongsToMany(News::getCategoryModel(), 'filament_news_post_category', 'news_post_id', 'news_category_id');
     }
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(NovaNews::getTagModel(), 'nova_news_post_tag', 'news_post_id', 'news_tag_id');
+        return $this->belongsToMany(News::getTagModel(), 'filament_news_post_tag', 'news_post_id', 'news_tag_id');
     }
 
     /**

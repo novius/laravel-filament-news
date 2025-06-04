@@ -1,7 +1,9 @@
 <?php
 
+namespace Novius\LaravelFilamentNews\Tests;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Novius\LaravelNovaNews\Models\NewsCategory;
+use Novius\LaravelFilamentNews\Models\NewsCategory;
 
 uses(RefreshDatabase::class);
 

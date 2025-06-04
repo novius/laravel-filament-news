@@ -1,32 +1,29 @@
 <div align="center">
 
-# Laravel Nova News
+# Laravel Filament News
 
-[![Novius CI](https://github.com/novius/laravel-nova-news/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/novius/laravel-nova-news/actions/workflows/main.yml)
+[![Novius CI](https://github.com/novius/laravel-filament-news/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/novius/laravel-filament-news/actions/workflows/main.yml)
 
 </div>
 
 ## Introduction 
 
-This [Laravel Nova](https://nova.laravel.com/) package allows you to manage Post news in your Laravel Nova admin panel.  
+This [Laravel Filament](https://filamentphp.com/) package allows you to manage Post news in your Laravel Filament admin panel.  
 You will be able to create posts, categories and tags.  
 You can attach multiple categories and tags to a post. Categories can be viewed as a listing page.
 
 ## Requirements
 
 * PHP >= 8.2
-* Laravel Nova >= 4.0
-* Laravel >= 10.0
-
-> **NOTE**: These instructions are for Laravel >= 10.0 and PHP >= 8.2 If you are using prior version, please
-> see the [previous version's docs](https://github.com/novius/laravel-nova-news/tree/0.1.x).
+* Laravel Filament >= 3.3
+* Laravel >= 11.0
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require novius/laravel-nova-news
+composer require novius/laravel-filament-news
 ```
 
 Register the tool in the `tools` method of the `NovaServiceProvider`:
@@ -38,7 +35,7 @@ public function tools()
 {
     return [
         // ...
-        new \Novius\LaravelNovaNews\LaravelNovaNews(),
+        new \Novius\LaravelFilamentNews\LaravelFilamentNews(),
     ];
 }
 ```
@@ -54,7 +51,7 @@ php artisan migrate
 You can optionally publish the config file with:
 
 ```bash
-php artisan vendor:publish --provider="Novius\LaravelNovaNews\LaravelNovaNewsServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Novius\LaravelFilamentNews\LaravelFilamentNewsServiceProvider" --tag="config"
 ```
 
 This will allow you defined routes names and  
@@ -65,7 +62,7 @@ This will allow you to:
 * define locales used
 
 ```php
-// config/laravel-nova-news.php
+// config/laravel-filament-news.php
 
 return [
     // ...
@@ -82,7 +79,7 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\Text;
 
-class Post extends \Novius\LaravelNovaNews\Nova\NewsPost
+class Post extends \Novius\LaravelFilamentNews\Nova\NewsPost
 {
     public function mainFields(): array
     {
@@ -122,11 +119,11 @@ php artisan vendor:publish --provider="Novius\LaravelNovaTranslatable\LaravelNov
 If you want to customize the migrations or lang files, you can publish them with:
 
 ```bash
-php artisan vendor:publish --provider="Novius\LaravelNovaNews\LaravelNovaNewsServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Novius\LaravelFilamentNews\LaravelFilamentNewsServiceProvider" --tag="migrations"
 ```
 
 ```bash
-php artisan vendor:publish --provider="Novius\LaravelNovaNews\LaravelNovaNewsServiceProvider" --tag="lang"
+php artisan vendor:publish --provider="Novius\LaravelFilamentNews\LaravelFilamentNewsServiceProvider" --tag="lang"
 ```
 
 ## Testing

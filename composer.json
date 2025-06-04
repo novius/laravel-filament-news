@@ -1,15 +1,15 @@
 {
-    "name": "novius/laravel-nova-news",
-    "description": "A Laravel Nova package for news and blog posts management",
+    "name": "novius/laravel-filament-news",
+    "description": "A Laravel Filament package for news and blog posts management",
     "keywords": [
         "laravel",
-        "nova",
+        "filament",
         "news",
         "articles"
     ],
     "support": {
-        "issues": "https://github.com/novius/laravel-nova-news/issues",
-        "source": "https://github.com/novius/laravel-nova-news"
+        "issues": "https://github.com/novius/laravel-filament-news/issues",
+        "source": "https://github.com/novius/laravel-filament-news"
     },
     "license": "AGPL-3.0-or-later",
     "authors": [
@@ -20,39 +20,42 @@
         }
     ],
     "require": {
-        "php": "^8.2",
-        "laravel/framework": "^10.0 | ^11.0 | ^12.0",
-        "laravel/nova": "^4.0 | ^5.0",
+        "php": ">=8.2",
+        "filament/filament": "^3.3",
+        "laravel/framework": "^11.0 | ^12.0",
         "novius/laravel-linkable": "^1.0",
-        "novius/laravel-meta": "^1.0",
-        "novius/laravel-nova-field-preview": "^2.0",
-        "novius/laravel-nova-publishable": "^3.0",
-        "novius/laravel-nova-translatable": "^1.0",
-        "spatie/laravel-sluggable": "^3.4",
-        "waynestate/nova-ckeditor4-field": "^1.1 | ^2.0"
+        "novius/laravel-meta": "dev-main",
+        "novius/laravel-filament-action-preview": "dev-main",
+        "novius/laravel-filament-publishable": "dev-main",
+        "novius/laravel-filament-translatable": "dev-main",
+        "spatie/laravel-sluggable": "^3.4"
     },
     "require-dev": {
         "larastan/larastan": "^2.0 | ^3.0",
+        "laravel-lang/publisher": "^16.6",
         "laravel/pint": "^1.13",
         "orchestra/testbench": "^v9.2.0 | ^v10.1.0",
         "pestphp/pest": "^2.34 | ^v3.7.4"
     },
     "autoload": {
         "psr-4": {
-            "Novius\\LaravelNovaNews\\": "src/",
-            "Novius\\LaravelNovaNews\\Database\\Factories\\": "database/factories",
-            "Novius\\LaravelNovaNews\\Database\\Seeders\\": "database/seeders"
+            "Novius\\LaravelFilamentNews\\": "src/",
+            "Novius\\LaravelFilamentNews\\Database\\Factories\\": "database/factories",
+            "Novius\\LaravelFilamentNews\\Database\\Seeders\\": "database/seeders"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Novius\\LaravelNovaNews\\Tests\\": "tests/"
+            "Novius\\LaravelFilamentNews\\Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Novius\\LaravelNovaNews\\LaravelNovaNewsServiceProvider"
+                "Novius\\LaravelFilamentNews\\LaravelFilamentNewsServiceProvider"
             ]
         }
     },
@@ -67,13 +70,33 @@
             "vendor/bin/pest"
         ],
         "phpstan": [
-            "./vendor/bin/phpstan analyse --memory-limit=1G"
+            "vendor/bin/phpstan analyse -c phpstan.dist.neon --memory-limit 1G"
+        ],
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve --ansi"
         ]
     },
     "repositories": [
         {
-            "type": "composer",
-            "url": "https://nova.laravel.com"
+            "type": "vcs",
+            "url": "git@github.com:novius/laravel-filament-action-preview.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:novius/laravel-filament-publishable.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:novius/laravel-filament-translatable.git"
         }
     ],
     "config": {

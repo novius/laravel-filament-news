@@ -1,6 +1,6 @@
 <?php
 
-namespace Novius\LaravelNovaNews\Console;
+namespace Novius\LaravelFilamentNews\Console;
 
 use Illuminate\Console\GeneratorCommand;
 
@@ -45,14 +45,14 @@ class FrontControllerCommand extends GeneratorCommand
                 '{{withoutCategories}}',
                 '{{withoutTags}}',
             ], [
-                config('laravel-nova-news.front_routes_name.posts') ?? 'news.posts',
-                config('laravel-nova-news.front_routes_name.categories') ?? 'news.categories',
-                config('laravel-nova-news.front_routes_name.post') ?? 'news.post',
-                config('laravel-nova-news.front_routes_name.category') ?? 'news.category',
-                config('laravel-nova-news.front_routes_name.tag') ?? 'news.tag',
-                config('laravel-nova-news.front_routes_parameters.post') ?? 'post',
-                config('laravel-nova-news.front_routes_parameters.category') ?? 'category',
-                config('laravel-nova-news.front_routes_parameters.tag') ?? 'tag',
+                config('laravel-filament-news.front_routes_name.posts') ?? 'news.posts',
+                config('laravel-filament-news.front_routes_name.categories') ?? 'news.categories',
+                config('laravel-filament-news.front_routes_name.post') ?? 'news.post',
+                config('laravel-filament-news.front_routes_name.category') ?? 'news.category',
+                config('laravel-filament-news.front_routes_name.tag') ?? 'news.tag',
+                config('laravel-filament-news.front_routes_parameters.post') ?? 'post',
+                config('laravel-filament-news.front_routes_parameters.category') ?? 'category',
+                config('laravel-filament-news.front_routes_parameters.tag') ?? 'tag',
                 $this->option('without-categories') ? '// ' : '',
                 $this->option('without-tags') ? '// ' : '',
             ], $routeToAppend);
@@ -116,9 +116,9 @@ class FrontControllerCommand extends GeneratorCommand
             '{{frontCategoryParameterName}}',
             '{{frontTagParameterName}}',
         ], [
-            config('laravel-nova-news.front_routes_parameters.post') ?? 'post',
-            config('laravel-nova-news.front_routes_parameters.category') ?? 'category',
-            config('laravel-nova-news.front_routes_parameters.tag') ?? 'tag',
+            config('laravel-filament-news.front_routes_parameters.post') ?? 'post',
+            config('laravel-filament-news.front_routes_parameters.category') ?? 'category',
+            config('laravel-filament-news.front_routes_parameters.tag') ?? 'tag',
         ], $stub);
 
         return parent::replaceClass($stub, $name);

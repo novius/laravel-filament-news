@@ -1,7 +1,9 @@
 <?php
 
+namespace Novius\LaravelFilamentNews\Tests;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Novius\LaravelNovaNews\Models\NewsTag;
+use Novius\LaravelFilamentNews\Models\NewsTag;
 
 uses(RefreshDatabase::class);
 

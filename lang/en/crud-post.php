@@ -2,23 +2,13 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Posts Crud Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used in your Posts CRUD throughout the
-    | Nova dashboard. You are free to modify these language lines according
-    | to your application's requirements.
-    |
-    */
-
     'resource_label' => 'Posts',
     'resource_label_singular' => 'Post',
 
     'panel_post_informations' => 'Post informations',
     'panel_post_content' => 'Post content',
     'panel_seo_fields' => 'SEO Fields',
+    'panel_publication' => 'Publication',
 
     'title' => 'Title',
     'slug' => 'Slug',
@@ -31,10 +21,4 @@ return [
     'featured_image' => 'Featured image',
     'card_image' => 'Card thumbnail',
     'card_image_help' => 'Displayed on the list of posts (post listing card',
-
-    'preview_link' => 'Preview',
-    'published' => 'Published',
-
-    'seo_heading' => '<p class="text-gray-400">These fields are used for SEO purposes. You can use them to customize how your post will be displayed on search engines.<br> They will be typically used on the <code>&lt;title&gt;</code> and <code>&lt;meta name="description"&gt;</code> meta tags of your post page.</p>',
-    'og_heading' => '<p class="text-gray-400">These fields are used for social media sharing.<br>They will be typically used on the meta tags of your post page.</p>',
 ];

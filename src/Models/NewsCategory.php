@@ -1,28 +1,27 @@
 <?php
 
-namespace Novius\LaravelNovaNews\Models;
+namespace Novius\LaravelFilamentNews\Models;
 
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Novius\LaravelFilamentNews\Database\Factories\NewsCategoryFactory;
+use Novius\LaravelFilamentNews\Facades\News;
 use Novius\LaravelLinkable\Configs\LinkableConfig;
 use Novius\LaravelLinkable\Traits\Linkable;
 use Novius\LaravelMeta\Enums\IndexFollow;
 use Novius\LaravelMeta\MetaModelConfig;
 use Novius\LaravelMeta\Traits\HasMeta;
-use Novius\LaravelNovaNews\Database\Factories\NewsCategoryFactory;
-use Novius\LaravelNovaNews\NovaNews;
 use Novius\LaravelTranslatable\Traits\Translatable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 /**
- * Class Category
- *
  * @property int $id
  * @property string $name
  * @property string $slug
@@ -49,7 +48,7 @@ use Spatie\Sluggable\SlugOptions;
  * @method static Builder|NewsCategory notIndexableByRobots()
  * @method static Builder|NewsCategory query()
  *
- * @mixin Eloquent
+ * @mixin Model
  */
 class NewsCategory extends Model
 {
@@ -60,12 +59,9 @@ class NewsCategory extends Model
     use SoftDeletes;
     use Translatable;
 
-    protected $table = 'nova_news_categories';
+    protected $table = 'filament_news_categories';
 
-    protected $fillable = [
-        'name',
-        'slug',
-    ];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'extras' => 'json',
@@ -73,11 +69,9 @@ class NewsCategory extends Model
 
     protected static function booted(): void
     {
-        static::saving(function ($category) {
-            $locales = config('laravel-nova-news.locales', []);
-
-            if (empty($category->locale) && count($locales) === 1) {
-                $category->locale = array_key_first($locales);
+        static::saving(static function (NewsCategory $category) {
+            if (empty($category->locale) && News::locales()->count() === 1) {
+                $category->locale = News::locales()->first()->code;
             }
         });
     }
@@ -110,8 +104,8 @@ class NewsCategory extends Model
 
     public function linkableConfig(): ?LinkableConfig
     {
-        $route = config('laravel-nova-news.front_routes_name.post');
-        $routeParameterName = config('laravel-nova-news.front_routes_parameters.post');
+        $route = config('laravel-filament-news.front_routes_name.post');
+        $routeParameterName = config('laravel-filament-news.front_routes_parameters.post');
         if (empty($routeParameterName) && empty($route)) {
             return null;
         }
@@ -121,7 +115,7 @@ class NewsCategory extends Model
                 routeName: $route,
                 routeParameterName: $routeParameterName,
                 optionLabel: 'name',
-                optionGroup: trans('laravel-nova-news::crud-category.resource_label'),
+                optionGroup: trans('laravel-filament-news::crud-category.resource_label'),
                 resolveQuery: function (Builder|NewsCategory $query) {
                     $query->where('locale', app()->currentLocale());
                 },
@@ -131,14 +125,14 @@ class NewsCategory extends Model
         return $this->_linkableConfig;
     }
 
-    public function localParent()
+    public function localParent(): HasOne
     {
         return $this->hasOne(static::class, 'id', 'locale_parent_id');
     }
 
-    public function posts()
+    public function posts(): BelongsToMany
     {
-        return $this->belongsToMany(NovaNews::getPostModel(), 'nova_news_post_category', 'news_category_id', 'news_post_id');
+        return $this->belongsToMany(News::getPostModel(), 'filament_news_post_category', 'news_category_id', 'news_post_id');
     }
 
     /**

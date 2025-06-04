@@ -1,9 +1,11 @@
 <?php
 
+namespace Novius\LaravelFilamentNews\Tests;
+
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Novius\LaravelNovaNews\Models\NewsCategory;
-use Novius\LaravelNovaNews\Models\NewsPost;
+use Novius\LaravelFilamentNews\Models\NewsCategory;
+use Novius\LaravelFilamentNews\Models\NewsPost;
 
 uses(RefreshDatabase::class);
 

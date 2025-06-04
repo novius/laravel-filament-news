@@ -3,9 +3,9 @@
 namespace {{ namespace }};
 
 use Novius\LaravelMeta\Facades\CurrentModel;
-use Novius\LaravelNovaNews\Models\NewsCategory;
-use Novius\LaravelNovaNews\Models\NewsPost;
-use Novius\LaravelNovaNews\Models\NewsTag;
+use Novius\LaravelFilamentNews\Models\NewsCategory;
+use Novius\LaravelFilamentNews\Models\NewsPost;
+use Novius\LaravelFilamentNews\Models\NewsTag;
 
 class {{ class }} extends Controller
 {

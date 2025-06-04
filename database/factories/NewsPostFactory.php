@@ -1,9 +1,9 @@
 <?php
 
-namespace Novius\LaravelNovaNews\Database\Factories;
+namespace Novius\LaravelFilamentNews\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Novius\LaravelNovaNews\Models\NewsPost;
+use Novius\LaravelFilamentNews\Models\NewsPost;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<NewsPost>
