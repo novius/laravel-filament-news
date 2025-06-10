@@ -3,6 +3,7 @@
 namespace Novius\LaravelFilamentNews\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,6 +27,20 @@ use Spatie\Sluggable\SlugOptions;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
+ * @property-read Collection<int, NewsPost> $posts
+ * @property-read Collection<int, NewsTag> $translations
+ * @property-read Collection<int, NewsTag> $translationsWithDeleted
+ *
+ * @method static NewsTagFactory factory($count = null, $state = [])
+ * @method static Builder<static>|NewsTag newModelQuery()
+ * @method static Builder<static>|NewsTag newQuery()
+ * @method static Builder<static>|NewsTag onlyTrashed()
+ * @method static Builder<static>|NewsTag query()
+ * @method static Builder<static>|NewsTag withLocale(?string $locale)
+ * @method static Builder<static>|NewsTag withTrashed()
+ * @method static Builder<static>|NewsTag withoutTrashed()
+ *
+ * @mixin Model
  */
 class NewsTag extends Model
 {

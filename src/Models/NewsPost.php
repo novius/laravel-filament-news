@@ -3,6 +3,7 @@
 namespace Novius\LaravelFilamentNews\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -57,18 +58,25 @@ use Spatie\Sluggable\SlugOptions;
  * @property-read string|null $og_description
  * @property-read string|null $og_image
  * @property-read string|null $og_image_url
+ * @property-read NewsPost|null $localParent
+ * @property-read Collection<int, NewsPost> $translations
+ * @property-read Collection<int, NewsPost> $translationsWithDeleted
  *
- * @method static Builder|NewsPost indexableByRobots()
- * @method static Builder|NewsPost newModelQuery()
- * @method static Builder|NewsPost newQuery()
- * @method static Builder|NewsPost notIndexableByRobots()
- * @method static Builder|NewsPost notPublished()
- * @method static Builder|NewsPost onlyDrafted()
- * @method static Builder|NewsPost onlyExpired()
- * @method static Builder|NewsPost onlyWillBePublished()
- * @method static Builder|NewsPost published()
- * @method static Builder|NewsPost query()
- * @method static Builder|NewsPost withLocale(?string $locale)
+ * @method static NewsPostFactory factory($count = null, $state = [])
+ * @method static Builder<static>|NewsPost indexableByRobots()
+ * @method static Builder<static>|NewsPost newModelQuery()
+ * @method static Builder<static>|NewsPost newQuery()
+ * @method static Builder<static>|NewsPost notIndexableByRobots()
+ * @method static Builder<static>|NewsPost notPublished()
+ * @method static Builder<static>|NewsPost onlyDrafted()
+ * @method static Builder<static>|NewsPost onlyExpired()
+ * @method static Builder<static>|NewsPost onlyTrashed()
+ * @method static Builder<static>|NewsPost onlyWillBePublished()
+ * @method static Builder<static>|NewsPost published()
+ * @method static Builder<static>|NewsPost query()
+ * @method static Builder<static>|NewsPost withLocale(?string $locale)
+ * @method static Builder<static>|NewsPost withTrashed()
+ * @method static Builder<static>|NewsPost withoutTrashed()
  *
  * @mixin Model
  */

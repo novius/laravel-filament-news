@@ -3,6 +3,7 @@
 namespace Novius\LaravelFilamentNews\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -41,12 +42,21 @@ use Spatie\Sluggable\SlugOptions;
  * @property-read string|null $og_description
  * @property-read string|null $og_image
  * @property-read string|null $og_image_url
+ * @property-read NewsCategory|null $localParent
+ * @property-read Collection<int, NewsPost> $posts
+ * @property-read Collection<int, NewsCategory> $translations
+ * @property-read Collection<int, NewsCategory> $translationsWithDeleted
  *
- * @method static Builder|NewsCategory indexableByRobots()
- * @method static Builder|NewsCategory newModelQuery()
- * @method static Builder|NewsCategory newQuery()
- * @method static Builder|NewsCategory notIndexableByRobots()
- * @method static Builder|NewsCategory query()
+ * @method static NewsCategoryFactory factory($count = null, $state = [])
+ * @method static Builder<static>|NewsCategory indexableByRobots()
+ * @method static Builder<static>|NewsCategory newModelQuery()
+ * @method static Builder<static>|NewsCategory newQuery()
+ * @method static Builder<static>|NewsCategory notIndexableByRobots()
+ * @method static Builder<static>|NewsCategory onlyTrashed()
+ * @method static Builder<static>|NewsCategory query()
+ * @method static Builder<static>|NewsCategory withLocale(?string $locale)
+ * @method static Builder<static>|NewsCategory withTrashed()
+ * @method static Builder<static>|NewsCategory withoutTrashed()
  *
  * @mixin Model
  */
