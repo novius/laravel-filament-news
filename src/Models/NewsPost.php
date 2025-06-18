@@ -178,12 +178,12 @@ class NewsPost extends Model
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(News::getCategoryModel(), 'filament_news_post_category', 'news_post_id', 'news_category_id');
+        return $this->belongsToMany(News::getCategoryModel(), 'news_post_category', 'news_post_id', 'news_category_id');
     }
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(News::getTagModel(), 'filament_news_post_tag', 'news_post_id', 'news_tag_id');
+        return $this->belongsToMany(News::getTagModel(), 'news_post_tag', 'news_post_id', 'news_tag_id');
     }
 
     /**

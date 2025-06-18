@@ -23,7 +23,7 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('filament_news_post_tag', function (Blueprint $table) {
+        Schema::create('news_post_tag', function (Blueprint $table) {
             $table->unsignedBigInteger('news_post_id');
             $table->unsignedBigInteger('news_tag_id');
 
@@ -46,7 +46,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('filament_news_post_tag');
+        Schema::dropIfExists('news_post_tag');
         Schema::dropIfExists('news_tags');
     }
 };
