@@ -50,7 +50,7 @@ class NewsTag extends Model
     use SoftDeletes;
     use Translatable;
 
-    protected $table = 'filament_news_tags';
+    protected $table = 'news_tags';
 
     protected $guarded = ['id'];
 

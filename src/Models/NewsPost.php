@@ -90,7 +90,7 @@ class NewsPost extends Model
     use SoftDeletes;
     use Translatable;
 
-    protected $table = 'filament_news_posts';
+    protected $table = 'news_posts';
 
     protected $guarded = ['id'];
 

@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('filament_news_categories', static function (Blueprint $table) {
+        Schema::table('news_categories', static function (Blueprint $table) {
             $table->addMeta();
         });
 
-        DB::table('filament_news_categories')->orderBy('id')->chunk(100, function ($posts) {
+        DB::table('news_categories')->orderBy('id')->chunk(100, function ($posts) {
             foreach ($posts as $post) {
                 $meta = [
                     'seo_robots' => IndexFollow::index_follow->value,
@@ -27,13 +27,13 @@ return new class extends Migration
                     'og_description' => $post->og_description,
                     'og_image' => $post->og_image,
                 ];
-                DB::table('filament_news_categories')->where('id', $post->id)->update([
+                DB::table('news_categories')->where('id', $post->id)->update([
                     'meta' => json_encode($meta, JSON_THROW_ON_ERROR),
                 ]);
             }
         });
 
-        Schema::table('filament_news_categories', static function (Blueprint $table) {
+        Schema::table('news_categories', static function (Blueprint $table) {
             $table->dropColumn([
                 'seo_title',
                 'seo_description',
@@ -49,7 +49,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('filament_news_categories', static function (Blueprint $table) {
+        Schema::table('news_categories', static function (Blueprint $table) {
             $table->string('seo_title')->nullable();
             $table->string('seo_description')->nullable();
 
@@ -58,10 +58,10 @@ return new class extends Migration
             $table->string('og_image')->nullable();
         });
 
-        DB::table('filament_news_categories')->orderBy('id')->chunk(100, function ($posts) {
+        DB::table('news_categories')->orderBy('id')->chunk(100, function ($posts) {
             foreach ($posts as $post) {
                 $meta = json_decode($post->meta, false, 512, JSON_THROW_ON_ERROR);
-                DB::table('filament_news_categories')->where('id', $post->id)->update([
+                DB::table('news_categories')->where('id', $post->id)->update([
                     'seo_title' => $meta->seo_title ?? null,
                     'seo_description' => $meta->seo_description ?? null,
                     'og_title' => $meta->og_title ?? null,
@@ -71,7 +71,7 @@ return new class extends Migration
             }
         });
 
-        Schema::table('filament_news_categories', static function (Blueprint $table) {
+        Schema::table('news_categories', static function (Blueprint $table) {
             $table->dropColumn('meta');
         });
     }

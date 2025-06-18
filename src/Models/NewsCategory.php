@@ -69,7 +69,7 @@ class NewsCategory extends Model
     use SoftDeletes;
     use Translatable;
 
-    protected $table = 'filament_news_categories';
+    protected $table = 'news_categories';
 
     protected $guarded = ['id'];
 

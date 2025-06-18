@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('filament_news_posts', function (Blueprint $table) {
+        Schema::create('news_posts', function (Blueprint $table) {
             $table->id();
 
             $table->string('title');
@@ -48,6 +48,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('filament_news_posts');
+        Schema::dropIfExists('news_posts');
     }
 };

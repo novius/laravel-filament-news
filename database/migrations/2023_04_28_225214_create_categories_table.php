@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('filament_news_categories', function (Blueprint $table) {
+        Schema::create('news_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug');
@@ -38,12 +38,12 @@ return new class extends Migration
 
             $table->foreign('news_post_id')
                 ->references('id')
-                ->on('filament_news_posts')
+                ->on('news_posts')
                 ->cascadeOnDelete();
 
             $table->foreign('news_category_id')
                 ->references('id')
-                ->on('filament_news_categories')
+                ->on('news_categories')
                 ->cascadeOnDelete();
 
             $table->primary(['news_post_id', 'news_category_id']);
@@ -56,6 +56,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('filament_news_post_category');
-        Schema::dropIfExists('filament_news_categories');
+        Schema::dropIfExists('news_categories');
     }
 };
