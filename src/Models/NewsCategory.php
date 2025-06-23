@@ -18,6 +18,7 @@ use Novius\LaravelLinkable\Traits\Linkable;
 use Novius\LaravelMeta\Enums\IndexFollow;
 use Novius\LaravelMeta\MetaModelConfig;
 use Novius\LaravelMeta\Traits\HasMeta;
+use Novius\LaravelTranslatable\Support\TranslatableModelConfig;
 use Novius\LaravelTranslatable\Traits\Translatable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -133,6 +134,11 @@ class NewsCategory extends Model
         }
 
         return $this->_linkableConfig;
+    }
+
+    public function translatableConfig(): TranslatableModelConfig
+    {
+        return new TranslatableModelConfig(config('laravel-filament-news.locales'));
     }
 
     public function localParent(): HasOne

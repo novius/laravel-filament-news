@@ -14,6 +14,7 @@ use Novius\LaravelFilamentNews\Database\Factories\NewsTagFactory;
 use Novius\LaravelFilamentNews\Facades\News;
 use Novius\LaravelLinkable\Configs\LinkableConfig;
 use Novius\LaravelLinkable\Traits\Linkable;
+use Novius\LaravelTranslatable\Support\TranslatableModelConfig;
 use Novius\LaravelTranslatable\Traits\Translatable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -98,6 +99,11 @@ class NewsTag extends Model
         }
 
         return $this->_linkableConfig;
+    }
+
+    public function translatableConfig(): TranslatableModelConfig
+    {
+        return new TranslatableModelConfig(config('laravel-filament-news.locales'));
     }
 
     public function getSlugOptions(): SlugOptions
