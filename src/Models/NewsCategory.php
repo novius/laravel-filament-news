@@ -95,6 +95,7 @@ class NewsCategory extends Model
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
+            ->extraScope(fn (Builder|NewsCategory $query) => $query->where('locale', $this->locale))
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug')
             ->doNotGenerateSlugsOnUpdate();

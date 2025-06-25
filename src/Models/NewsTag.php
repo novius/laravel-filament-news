@@ -109,6 +109,7 @@ class NewsTag extends Model
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
+            ->extraScope(fn (Builder|NewsTag $query) => $query->where('locale', $this->locale))
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug')
             ->doNotGenerateSlugsOnUpdate();
