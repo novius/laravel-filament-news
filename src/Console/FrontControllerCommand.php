@@ -70,7 +70,7 @@ class FrontControllerCommand extends GeneratorCommand
      */
     protected function getNameInput(): string
     {
-        return 'FrontNewsController';
+        return 'NewsController';
     }
 
     /**

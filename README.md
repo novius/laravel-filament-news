@@ -3,6 +3,8 @@
 # Laravel Filament News
 
 [![Novius CI](https://github.com/novius/laravel-filament-news/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/novius/laravel-filament-news/actions/workflows/main.yml)
+[![Packagist Release](https://img.shields.io/packagist/v/novius/laravel-filament-news.svg?maxAge=1800&style=flat-square)](https://packagist.org/packages/novius/laravel-filament-news)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
 
 </div>
 
@@ -26,24 +28,30 @@ You can install the package via composer:
 composer require novius/laravel-filament-news
 ```
 
-Register the tool in the `tools` method of the `NovaServiceProvider`:
-
-```php
-// app/Providers/NovaServiceProvider.php
-
-public function tools()
-{
-    return [
-        // ...
-        new \Novius\LaravelFilamentNews\LaravelFilamentNews(),
-    ];
-}
-```
-
 Run migrations with:
 
 ```bash
 php artisan migrate
+```
+
+In your `AdminFilamentPanelProvider` add the `PageManagerPlugin` :
+
+```php
+use Novius\LaravelFilamentNews\Filament\NewsPlugin;
+
+class AdminFilamentPanelProvider extends PanelProvider
+{
+    public function panel(Panel $panel): Panel
+    {
+        return $panel
+            // ...
+            ->plugins([
+                NewsPlugin::make(),
+            ])
+            // ...
+            ;
+    }
+}
 ```
 
 ## Configuration
@@ -54,42 +62,58 @@ You can optionally publish the config file with:
 php artisan vendor:publish --provider="Novius\LaravelFilamentNews\LaravelFilamentNewsServiceProvider" --tag="config"
 ```
 
-This will allow you defined routes names and  
-
 This will allow you to:  
 * define the name of the routes and their parameter
-* override resource or model class
+* override resource or model classes
 * define locales used
 
 ```php
 // config/laravel-filament-news.php
 
 return [
-    // ...
+    /*
+     * Resources used to manage your posts. 
+     */
     'resources' => [
-        'post' => \App\Nova\Post::class,
+        'post' => \Novius\LaravelFilamentNews\Filament\Resources\PostResource::class,
+        'category' => \Novius\LaravelFilamentNews\Filament\Resources\CategoryResource::class,
+        'tag' => \Novius\LaravelFilamentNews\Filament\Resources\TagResource::class,
+    ],
+
+    /*
+     * Models used to manage your posts.
+     */
+    'models' => [
+        'post' => \Novius\LaravelFilamentNews\Models\NewsPost::class,
+        'category' => \Novius\LaravelFilamentNews\Models\NewsCategory::class,
+        'tag' => \Novius\LaravelFilamentNews\Models\NewsTag::class,
+    ],
+
+    // If you want to restrict the list of possible locals. By default, uses all the locals installed
+    'locales' => [
+        // 'en',
+    ],
+
+    /*
+     * The route name used to display news posts and categories.
+     */
+    'front_routes_name' => [
+        'posts' => null,
+        'post' => null,
+        'categories' => null,
+        'category' => null,
+        'tag' => null,
+    ],
+
+    /*
+     * The route name used to display news posts and categories.
+     */
+    'front_routes_parameters' => [
+        'post' => null,
+        'category' => null,
+        'tag' => null,
     ],
 ];
-```
-
-```php
-// app/Nova/Post.php
-
-namespace App\Nova;
-
-use Laravel\Nova\Fields\Text;
-
-class Post extends \Novius\LaravelFilamentNews\Nova\NewsPost
-{
-    public function mainFields(): array
-    {
-        return [
-            ...parent::mainFields(),
-
-            Text::make('Subtitle'),
-        ];
-    }
-}
 ```
 
 ## Front Stuff
@@ -100,7 +124,7 @@ If you want a pre-generated front controller and routes, you can run following c
 php artisan news-manager:publish-front {--without-categories} {--without-tags} 
 ``` 
 
-This command appends routes to `routes/web.php` and creates a new `App\Http\Controllers\FrontNewsController`.
+This command appends routes to `routes/web.php` and creates a new `App\Http\Controllers\NewsController`.
 
 You can then customize your routes and your controller.
 
