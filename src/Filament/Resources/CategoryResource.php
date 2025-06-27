@@ -27,6 +27,7 @@ use Novius\LaravelFilamentNews\Filament\Resources\CategoryResource\RelationManag
 use Novius\LaravelFilamentNews\Models\NewsCategory;
 use Novius\LaravelFilamentPublishable\Filament\Tables\Actions\PublicationBulkAction;
 use Novius\LaravelFilamentPublishable\Filament\Tables\Filters\PublicationStatusFilter;
+use Novius\LaravelFilamentSlug\Filament\Forms\Components\Slug;
 use Novius\LaravelFilamentTranslatable\Filament\Forms\Components\Locale;
 use Novius\LaravelFilamentTranslatable\Filament\Tables\Columns\LocaleColumn;
 use Novius\LaravelFilamentTranslatable\Filament\Tables\Columns\TranslationsColumn;
@@ -90,7 +91,7 @@ class CategoryResource extends Resource
                     $set('slug', Str::slug($state));
                 }),
 
-            TextInput::make('slug')
+            Slug::make('slug')
                 ->label(trans('laravel-filament-news::crud-category.slug'))
                 ->required()
                 ->string()

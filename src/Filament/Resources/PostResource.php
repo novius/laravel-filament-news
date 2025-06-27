@@ -42,6 +42,7 @@ use Novius\LaravelFilamentPublishable\Filament\Forms\Components\PublishedFirstAt
 use Novius\LaravelFilamentPublishable\Filament\Tables\Actions\PublicationBulkAction;
 use Novius\LaravelFilamentPublishable\Filament\Tables\Columns\PublicationColumn;
 use Novius\LaravelFilamentPublishable\Filament\Tables\Filters\PublicationStatusFilter;
+use Novius\LaravelFilamentSlug\Filament\Forms\Components\Slug;
 use Novius\LaravelFilamentTranslatable\Filament\Forms\Components\Locale;
 use Novius\LaravelFilamentTranslatable\Filament\Tables\Columns\LocaleColumn;
 use Novius\LaravelFilamentTranslatable\Filament\Tables\Columns\TranslationsColumn;
@@ -99,7 +100,7 @@ class PostResource extends Resource
     protected static function tabMain(): array
     {
         return [
-            TextInput::make('title')
+            $title = TextInput::make('title')
                 ->label(trans('laravel-filament-news::crud-post.title'))
                 ->required()
                 ->live(onBlur: true)
@@ -107,8 +108,9 @@ class PostResource extends Resource
                     $set('slug', Str::slug($state));
                 }),
 
-            TextInput::make('slug')
+            Slug::make('slug')
                 ->label(trans('laravel-filament-news::crud-post.slug'))
+                ->fromField($title)
                 ->required()
                 ->string()
                 ->regex('/^[a-zA-Z0-9-_]+$/')
