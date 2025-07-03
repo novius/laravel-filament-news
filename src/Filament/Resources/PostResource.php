@@ -199,7 +199,14 @@ class PostResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('updated_at', 'desc')
             ->columns([
+                TextColumn::make('id')
+                    ->label(trans('laravel-filament-news::crud-post.id'))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('title')
                     ->label(trans('laravel-filament-news::crud-post.title'))
                     ->searchable()
@@ -221,6 +228,18 @@ class PostResource extends Resource
                     ->sortable(),
 
                 static::getTableSEOBadgeColumn(),
+
+                TextColumn::make('created_at')
+                    ->label(trans('laravel-filament-news::crud-post.created_at'))
+                    ->dateTime()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
+
+                TextColumn::make('updated_at')
+                    ->label(trans('laravel-filament-news::crud-post.updated_at'))
+                    ->dateTime()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
             ])
             ->filters([
                 LocaleFilter::make('locale'),

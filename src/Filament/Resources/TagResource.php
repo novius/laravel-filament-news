@@ -100,7 +100,14 @@ class TagResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('name')
             ->columns([
+                TextColumn::make('id')
+                    ->label(trans('laravel-filament-news::crud-tag.id'))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('name')
                     ->label(trans('laravel-filament-news::crud-tag.name'))
                     ->searchable()
@@ -112,7 +119,20 @@ class TagResource extends Resource
                     ->sortable(),
 
                 LocaleColumn::make('locale'),
+
                 TranslationsColumn::make('translations'),
+
+                TextColumn::make('created_at')
+                    ->label(trans('laravel-filament-news::crud-tag.created_at'))
+                    ->dateTime()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
+
+                TextColumn::make('updated_at')
+                    ->label(trans('laravel-filament-news::crud-tag.updated_at'))
+                    ->dateTime()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
             ])
             ->filters([
                 LocaleFilter::make('locale'),

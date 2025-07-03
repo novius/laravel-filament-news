@@ -10,6 +10,7 @@ return [
     'panel_seo_fields' => 'Metas SEO',
     'panel_publication' => 'Publication',
 
+    'id' => 'Id',
     'title' => 'Titre',
     'slug' => 'Slug',
     'categories' => 'Catégories',
@@ -21,4 +22,6 @@ return [
     'featured_image' => 'Image mise en avant',
     'card_image' => 'Miniature de l\'article',
     'card_image_help' => 'Affichée sur le listing des articles',
+    'created_at' => 'Créé le',
+    'updated_at' => 'Modifié le',
 ];

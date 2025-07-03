@@ -10,6 +10,7 @@ return [
     'panel_seo_fields' => 'SEO Fields',
     'panel_publication' => 'Publication',
 
+    'id' => 'Id',
     'title' => 'Title',
     'slug' => 'Slug',
     'categories' => 'Categories',
@@ -21,4 +22,6 @@ return [
     'featured_image' => 'Featured image',
     'card_image' => 'Card thumbnail',
     'card_image_help' => 'Displayed on the list of posts (post listing card',
+    'created_at' => 'Created at',
+    'updated_at' => 'Updated at',
 ];

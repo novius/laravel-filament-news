@@ -118,7 +118,14 @@ class CategoryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('name')
             ->columns([
+                TextColumn::make('id')
+                    ->label(trans('laravel-filament-news::crud-category.id'))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('name')
                     ->label(trans('laravel-filament-news::crud-category.name'))
                     ->searchable()
@@ -133,6 +140,18 @@ class CategoryResource extends Resource
                 TranslationsColumn::make('translations'),
 
                 static::getTableSEOBadgeColumn(),
+
+                TextColumn::make('created_at')
+                    ->label(trans('laravel-filament-news::crud-category.created_at'))
+                    ->dateTime()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
+
+                TextColumn::make('updated_at')
+                    ->label(trans('laravel-filament-news::crud-category.updated_at'))
+                    ->dateTime()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
             ])
             ->filters([
                 LocaleFilter::make('locale'),
