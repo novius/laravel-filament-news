@@ -139,7 +139,7 @@ class NewsCategory extends Model
 
     public function translatableConfig(): TranslatableModelConfig
     {
-        return new TranslatableModelConfig(News::locales()->toArray());
+        return new TranslatableModelConfig(News::locales()->pluck('code')->toArray());
     }
 
     public function localParent(): HasOne
