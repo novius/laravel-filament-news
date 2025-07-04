@@ -103,7 +103,7 @@ class NewsTag extends Model
 
     public function translatableConfig(): TranslatableModelConfig
     {
-        return new TranslatableModelConfig(config('laravel-filament-news.locales'));
+        return new TranslatableModelConfig(News::locales()->toArray());
     }
 
     public function getSlugOptions(): SlugOptions
