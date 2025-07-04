@@ -103,7 +103,7 @@ class NewsTag extends Model
 
     public function translatableConfig(): TranslatableModelConfig
     {
-        return new TranslatableModelConfig(News::locales()->toArray());
+        return new TranslatableModelConfig(News::locales()->pluck('code')->toArray());
     }
 
     public function getSlugOptions(): SlugOptions
