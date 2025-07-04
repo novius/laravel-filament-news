@@ -116,8 +116,8 @@ class NewsCategory extends Model
 
     public function linkableConfig(): ?LinkableConfig
     {
-        $route = config('laravel-filament-news.front_routes_name.post');
-        $routeParameterName = config('laravel-filament-news.front_routes_parameters.post');
+        $route = config('laravel-filament-news.front_routes_name.category');
+        $routeParameterName = config('laravel-filament-news.front_routes_parameters.category');
         if (empty($routeParameterName) && empty($route)) {
             return null;
         }
