@@ -2,29 +2,34 @@
 
 namespace Novius\LaravelFilamentNews\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Section;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\ViewAction;
+use Filament\Tables\Enums\RecordActionsPosition;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Novius\LaravelFilamentNews\Filament\Resources\PostResource\Pages\ListPost;
+use Novius\LaravelFilamentNews\Filament\Resources\PostResource\Pages\CreatePost;
+use Novius\LaravelFilamentNews\Filament\Resources\PostResource\Pages\ViewPost;
+use Novius\LaravelFilamentNews\Filament\Resources\PostResource\Pages\EditPost;
 use Exception;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Filament\Resources\Resource;
-use Filament\Tables\Actions\ActionGroup;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
-use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -60,7 +65,7 @@ class PostResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
-    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-newspaper';
 
     protected static ?string $recordRouteKeyName = 'id';
 
@@ -79,18 +84,18 @@ class PostResource extends Resource
         return trans('laravel-filament-news::news.navigation_group');
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Tabs::make()
                     ->columnSpanFull()
                     ->tabs([
-                        Tabs\Tab::make(trans('laravel-filament-news::crud-post.panel_post_informations'))
+                        Tab::make(trans('laravel-filament-news::crud-post.panel_post_informations'))
                             ->schema(static::tabMain()),
-                        Tabs\Tab::make(trans('laravel-filament-news::crud-post.panel_post_content'))
+                        Tab::make(trans('laravel-filament-news::crud-post.panel_post_content'))
                             ->schema(static::tabContent()),
-                        Tabs\Tab::make(trans('laravel-filament-news::crud-post.panel_seo_fields'))
+                        Tab::make(trans('laravel-filament-news::crud-post.panel_seo_fields'))
                             ->schema(static::getFormSEOFields()),
                     ])
                     ->columns()
@@ -249,15 +254,15 @@ class PostResource extends Resource
                     ->label(trans('laravel-filament-news::crud-post.featured')),
                 TrashedFilter::make(),
             ])
-            ->actions([
+            ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),
                 ActionGroup::make([
                     PreviewAction::make(),
                     ViewAction::make(),
                 ]),
-            ], ActionsPosition::BeforeColumns)
-            ->bulkActions([
+            ], RecordActionsPosition::BeforeColumns)
+            ->toolbarActions([
                 BulkActionGroup::make([
                     PublicationBulkAction::make(),
                     DeleteBulkAction::make(),
@@ -268,10 +273,10 @@ class PostResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPost::route('/'),
-            'create' => Pages\CreatePost::route('/create'),
-            'view' => Pages\ViewPost::route('/{record:id}'),
-            'edit' => Pages\EditPost::route('/{record:id}/edit'),
+            'index' => ListPost::route('/'),
+            'create' => CreatePost::route('/create'),
+            'view' => ViewPost::route('/{record:id}'),
+            'edit' => EditPost::route('/{record:id}/edit'),
         ];
     }
 

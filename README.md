@@ -17,7 +17,7 @@ You can attach multiple categories and tags to a post. Categories can be viewed 
 ## Requirements
 
 * PHP >= 8.2
-* Laravel Filament >= 3.3
+* Laravel Filament >= 4
 * Laravel >= 11.0
 
 ## Installation

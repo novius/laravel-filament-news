@@ -2,10 +2,11 @@
 
 namespace Novius\LaravelFilamentNews\Filament\Resources\CategoryResource\RelationManagers;
 
+use Filament\Actions\ViewAction;
+use Filament\Tables\Enums\RecordActionsPosition;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Novius\LaravelFilamentNews\Filament\Resources\PostResource;
@@ -43,9 +44,9 @@ class PostsRelationManager extends RelationManager
                 PublicationColumn::make('publication_status')
                     ->sortable(),
             ])
-            ->actions([
-                Tables\Actions\ViewAction::make()
+            ->recordActions([
+                ViewAction::make()
                     ->url(fn (NewsPost $record) => PostResource::getUrl('view', ['record' => $record])),
-            ], ActionsPosition::BeforeColumns);
+            ], RecordActionsPosition::BeforeColumns);
     }
 }

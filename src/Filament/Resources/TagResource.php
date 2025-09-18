@@ -2,21 +2,25 @@
 
 namespace Novius\LaravelFilamentNews\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\ViewAction;
+use Filament\Tables\Enums\RecordActionsPosition;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Novius\LaravelFilamentNews\Filament\Resources\TagResource\Pages\ListTag;
+use Novius\LaravelFilamentNews\Filament\Resources\TagResource\Pages\CreateTag;
+use Novius\LaravelFilamentNews\Filament\Resources\TagResource\Pages\ViewTag;
+use Novius\LaravelFilamentNews\Filament\Resources\TagResource\Pages\EditTag;
 use Exception;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Filament\Resources\Resource;
-use Filament\Tables\Actions\ActionGroup;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Unique;
@@ -42,7 +46,7 @@ class TagResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-tag';
 
     protected static ?string $recordRouteKeyName = 'id';
 
@@ -61,10 +65,10 @@ class TagResource extends Resource
         return trans('laravel-filament-news::news.navigation_group');
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 TextInput::make('name')
                     ->label(trans('laravel-filament-news::crud-tag.name'))
                     ->required()
@@ -138,15 +142,15 @@ class TagResource extends Resource
             ->filters([
                 LocaleFilter::make('locale'),
             ])
-            ->actions([
+            ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),
                 ActionGroup::make([
                     PreviewAction::make(),
                     ViewAction::make(),
                 ]),
-            ], ActionsPosition::BeforeColumns)
-            ->bulkActions([
+            ], RecordActionsPosition::BeforeColumns)
+            ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
@@ -156,10 +160,10 @@ class TagResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTag::route('/'),
-            'create' => Pages\CreateTag::route('/create'),
-            'view' => Pages\ViewTag::route('/{record:id}'),
-            'edit' => Pages\EditTag::route('/{record:id}/edit'),
+            'index' => ListTag::route('/'),
+            'create' => CreateTag::route('/create'),
+            'view' => ViewTag::route('/{record:id}'),
+            'edit' => EditTag::route('/{record:id}/edit'),
         ];
     }
 

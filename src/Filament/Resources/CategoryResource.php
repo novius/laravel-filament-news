@@ -2,22 +2,27 @@
 
 namespace Novius\LaravelFilamentNews\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\ViewAction;
+use Filament\Tables\Enums\RecordActionsPosition;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Novius\LaravelFilamentNews\Filament\Resources\CategoryResource\Pages\ListCategory;
+use Novius\LaravelFilamentNews\Filament\Resources\CategoryResource\Pages\CreateCategory;
+use Novius\LaravelFilamentNews\Filament\Resources\CategoryResource\Pages\ViewCategory;
+use Novius\LaravelFilamentNews\Filament\Resources\CategoryResource\Pages\EditCategory;
 use Exception;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Filament\Resources\Resource;
-use Filament\Tables\Actions\ActionGroup;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Unique;
@@ -45,7 +50,7 @@ class CategoryResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $navigationIcon = 'heroicon-o-folder';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-folder';
 
     protected static ?string $recordRouteKeyName = 'id';
 
@@ -64,16 +69,16 @@ class CategoryResource extends Resource
         return trans('laravel-filament-news::news.navigation_group');
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Tabs::make()
                     ->columnSpanFull()
                     ->tabs([
-                        Tabs\Tab::make(trans('laravel-filament-news::crud-category.panel_post_informations'))
+                        Tab::make(trans('laravel-filament-news::crud-category.panel_post_informations'))
                             ->schema(static::tabMain()),
-                        Tabs\Tab::make(trans('laravel-filament-news::crud-category.panel_seo_fields'))
+                        Tab::make(trans('laravel-filament-news::crud-category.panel_seo_fields'))
                             ->schema(static::getFormSEOFields()),
                     ])
                     ->columns()
@@ -158,15 +163,15 @@ class CategoryResource extends Resource
                 LocaleFilter::make('locale'),
                 PublicationStatusFilter::make('publication_status'),
             ])
-            ->actions([
+            ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),
                 ActionGroup::make([
                     PreviewAction::make(),
                     ViewAction::make(),
                 ]),
-            ], ActionsPosition::BeforeColumns)
-            ->bulkActions([
+            ], RecordActionsPosition::BeforeColumns)
+            ->toolbarActions([
                 BulkActionGroup::make([
                     PublicationBulkAction::make(),
                     DeleteBulkAction::make(),
@@ -177,10 +182,10 @@ class CategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCategory::route('/'),
-            'create' => Pages\CreateCategory::route('/create'),
-            'view' => Pages\ViewCategory::route('/{record:id}'),
-            'edit' => Pages\EditCategory::route('/{record:id}/edit'),
+            'index' => ListCategory::route('/'),
+            'create' => CreateCategory::route('/create'),
+            'view' => ViewCategory::route('/{record:id}'),
+            'edit' => EditCategory::route('/{record:id}/edit'),
         ];
     }
 

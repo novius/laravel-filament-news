@@ -1,6 +1,7 @@
 /vendor
 composer.lock
 auth.json
+/.ddev
 
 # IDE Stuff
 /.fleet
