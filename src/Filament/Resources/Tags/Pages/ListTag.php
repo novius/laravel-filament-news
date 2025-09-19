@@ -1,6 +1,6 @@
 <?php
 
-namespace Novius\LaravelFilamentNews\Filament\Resources\TagResource\Pages;
+namespace Novius\LaravelFilamentNews\Filament\Resources\Tags\Pages;
 
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;

@@ -1,15 +1,14 @@
 <?php
 
-namespace Novius\LaravelFilamentNews\Filament\Resources\TagResource\RelationManagers;
+namespace Novius\LaravelFilamentNews\Filament\Resources\Categories\RelationManagers;
 
 use Filament\Actions\ViewAction;
-use Filament\Tables\Enums\RecordActionsPosition;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\RecordActionsPosition;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
-use Novius\LaravelFilamentNews\Filament\Resources\PostResource;
+use Novius\LaravelFilamentNews\Filament\Resources\Posts\PostResource;
 use Novius\LaravelFilamentNews\Models\NewsPost;
 use Novius\LaravelFilamentPublishable\Filament\Tables\Columns\PublicationColumn;
 use Novius\LaravelFilamentTranslatable\Filament\Tables\Columns\LocaleColumn;

@@ -5,9 +5,9 @@ return [
      * Resources used to manage your posts.
      */
     'resources' => [
-        'post' => \Novius\LaravelFilamentNews\Filament\Resources\PostResource::class,
-        'category' => \Novius\LaravelFilamentNews\Filament\Resources\CategoryResource::class,
-        'tag' => \Novius\LaravelFilamentNews\Filament\Resources\TagResource::class,
+        'post' => \Novius\LaravelFilamentNews\Filament\Resources\Posts\PostResource::class,
+        'category' => \Novius\LaravelFilamentNews\Filament\Resources\Categories\CategoryResource::class,
+        'tag' => \Novius\LaravelFilamentNews\Filament\Resources\Tags\TagResource::class,
     ],
 
     /*

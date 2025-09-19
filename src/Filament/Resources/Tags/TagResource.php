@@ -1,33 +1,32 @@
 <?php
 
-namespace Novius\LaravelFilamentNews\Filament\Resources;
+namespace Novius\LaravelFilamentNews\Filament\Resources\Tags;
 
-use Filament\Schemas\Schema;
-use Filament\Schemas\Components\Utilities\Set;
-use Filament\Schemas\Components\Utilities\Get;
-use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\ActionGroup;
-use Filament\Actions\ViewAction;
-use Filament\Tables\Enums\RecordActionsPosition;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use Novius\LaravelFilamentNews\Filament\Resources\TagResource\Pages\ListTag;
-use Novius\LaravelFilamentNews\Filament\Resources\TagResource\Pages\CreateTag;
-use Novius\LaravelFilamentNews\Filament\Resources\TagResource\Pages\ViewTag;
-use Novius\LaravelFilamentNews\Filament\Resources\TagResource\Pages\EditTag;
 use Exception;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\RecordActionsPosition;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Unique;
 use Novius\LaravelFilamentActionPreview\Filament\Tables\Actions\PreviewAction;
 use Novius\LaravelFilamentNews\Facades\News;
-use Novius\LaravelFilamentNews\Filament\Resources\TagResource\Pages;
-use Novius\LaravelFilamentNews\Filament\Resources\TagResource\RelationManagers\PostsRelationManager;
+use Novius\LaravelFilamentNews\Filament\Resources\Tags\Pages\CreateTag;
+use Novius\LaravelFilamentNews\Filament\Resources\Tags\Pages\EditTag;
+use Novius\LaravelFilamentNews\Filament\Resources\Tags\Pages\ListTag;
+use Novius\LaravelFilamentNews\Filament\Resources\Tags\Pages\ViewTag;
+use Novius\LaravelFilamentNews\Filament\Resources\Tags\RelationManagers\PostsRelationManager;
 use Novius\LaravelFilamentNews\Models\NewsTag;
 use Novius\LaravelFilamentSlug\Filament\Forms\Components\Slug;
 use Novius\LaravelFilamentTranslatable\Filament\Forms\Components\Locale;
@@ -46,7 +45,7 @@ class TagResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-tag';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-tag';
 
     protected static ?string $recordRouteKeyName = 'id';
 

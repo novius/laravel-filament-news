@@ -1,19 +1,19 @@
 <?php
 
-namespace Novius\LaravelFilamentNews\Filament\Resources\TagResource\Pages;
+namespace Novius\LaravelFilamentNews\Filament\Resources\Categories\Pages;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use LaravelLang\Locales\Facades\Locales;
 use Novius\LaravelFilamentNews\Facades\News;
-use Novius\LaravelFilamentNews\Models\NewsTag;
+use Novius\LaravelFilamentNews\Models\NewsCategory;
 use Novius\LaravelFilamentTranslatable\Filament\Resources\Pages\CreateRecord;
 
-class CreateTag extends CreateRecord
+class CreateCategory extends CreateRecord
 {
     public static function getResource(): string
     {
-        return News::getTagResource();
+        return News::getCategoryResource();
     }
 
     protected function getHeaderActions(): array
@@ -24,7 +24,7 @@ class CreateTag extends CreateRecord
     }
 
     /**
-     * @param  NewsTag  $parent
+     * @param  NewsCategory  $parent
      */
     protected function getDataFromTranslate(Model $parent, string $locale): array
     {

@@ -1,25 +1,14 @@
 <?php
 
-namespace Novius\LaravelFilamentNews\Filament\Resources;
+namespace Novius\LaravelFilamentNews\Filament\Resources\Posts;
 
-use Filament\Schemas\Schema;
-use Filament\Schemas\Components\Tabs;
-use Filament\Schemas\Components\Tabs\Tab;
-use Filament\Schemas\Components\Utilities\Set;
-use Filament\Schemas\Components\Utilities\Get;
-use Filament\Schemas\Components\Section;
-use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\ActionGroup;
-use Filament\Actions\ViewAction;
-use Filament\Tables\Enums\RecordActionsPosition;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use Novius\LaravelFilamentNews\Filament\Resources\PostResource\Pages\ListPost;
-use Novius\LaravelFilamentNews\Filament\Resources\PostResource\Pages\CreatePost;
-use Novius\LaravelFilamentNews\Filament\Resources\PostResource\Pages\ViewPost;
-use Novius\LaravelFilamentNews\Filament\Resources\PostResource\Pages\EditPost;
 use Exception;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
@@ -28,8 +17,15 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Enums\RecordActionsPosition;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -38,7 +34,10 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Unique;
 use Novius\LaravelFilamentActionPreview\Filament\Tables\Actions\PreviewAction;
 use Novius\LaravelFilamentNews\Facades\News;
-use Novius\LaravelFilamentNews\Filament\Resources\PostResource\Pages;
+use Novius\LaravelFilamentNews\Filament\Resources\Posts\Pages\CreatePost;
+use Novius\LaravelFilamentNews\Filament\Resources\Posts\Pages\EditPost;
+use Novius\LaravelFilamentNews\Filament\Resources\Posts\Pages\ListPost;
+use Novius\LaravelFilamentNews\Filament\Resources\Posts\Pages\ViewPost;
 use Novius\LaravelFilamentNews\Models\NewsCategory;
 use Novius\LaravelFilamentNews\Models\NewsPost;
 use Novius\LaravelFilamentPublishable\Filament\Forms\Components\ExpiredAt;
@@ -65,7 +64,7 @@ class PostResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-newspaper';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-newspaper';
 
     protected static ?string $recordRouteKeyName = 'id';
 

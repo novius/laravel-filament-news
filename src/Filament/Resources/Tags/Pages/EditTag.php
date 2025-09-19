@@ -1,27 +1,27 @@
 <?php
 
-namespace Novius\LaravelFilamentNews\Filament\Resources\PostResource\Pages;
+namespace Novius\LaravelFilamentNews\Filament\Resources\Tags\Pages;
 
 use Filament\Actions\DeleteAction;
-use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
-use Filament\Resources\Pages\ViewRecord;
+use Filament\Actions\ViewAction;
+use Filament\Resources\Pages\EditRecord;
 use Novius\LaravelFilamentActionPreview\Filament\Actions\PreviewAction;
 use Novius\LaravelFilamentNews\Facades\News;
 
-class ViewPost extends ViewRecord
+class EditTag extends EditRecord
 {
     public static function getResource(): string
     {
-        return News::getPostResource();
+        return News::getTagResource();
     }
 
     protected function getHeaderActions(): array
     {
         return [
             PreviewAction::make(),
-            EditAction::make(),
+            ViewAction::make(),
             DeleteAction::make(),
             ForceDeleteAction::make(),
             RestoreAction::make(),

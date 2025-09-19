@@ -1,35 +1,34 @@
 <?php
 
-namespace Novius\LaravelFilamentNews\Filament\Resources;
+namespace Novius\LaravelFilamentNews\Filament\Resources\Categories;
 
-use Filament\Schemas\Schema;
-use Filament\Schemas\Components\Tabs;
-use Filament\Schemas\Components\Tabs\Tab;
-use Filament\Schemas\Components\Utilities\Set;
-use Filament\Schemas\Components\Utilities\Get;
-use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\ActionGroup;
-use Filament\Actions\ViewAction;
-use Filament\Tables\Enums\RecordActionsPosition;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use Novius\LaravelFilamentNews\Filament\Resources\CategoryResource\Pages\ListCategory;
-use Novius\LaravelFilamentNews\Filament\Resources\CategoryResource\Pages\CreateCategory;
-use Novius\LaravelFilamentNews\Filament\Resources\CategoryResource\Pages\ViewCategory;
-use Novius\LaravelFilamentNews\Filament\Resources\CategoryResource\Pages\EditCategory;
 use Exception;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\RecordActionsPosition;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Unique;
 use Novius\LaravelFilamentActionPreview\Filament\Tables\Actions\PreviewAction;
 use Novius\LaravelFilamentNews\Facades\News;
-use Novius\LaravelFilamentNews\Filament\Resources\CategoryResource\Pages;
-use Novius\LaravelFilamentNews\Filament\Resources\CategoryResource\RelationManagers\PostsRelationManager;
+use Novius\LaravelFilamentNews\Filament\Resources\Categories\Pages\CreateCategory;
+use Novius\LaravelFilamentNews\Filament\Resources\Categories\Pages\EditCategory;
+use Novius\LaravelFilamentNews\Filament\Resources\Categories\Pages\ListCategory;
+use Novius\LaravelFilamentNews\Filament\Resources\Categories\Pages\ViewCategory;
+use Novius\LaravelFilamentNews\Filament\Resources\Categories\RelationManagers\PostsRelationManager;
 use Novius\LaravelFilamentNews\Models\NewsCategory;
 use Novius\LaravelFilamentPublishable\Filament\Tables\Actions\PublicationBulkAction;
 use Novius\LaravelFilamentPublishable\Filament\Tables\Filters\PublicationStatusFilter;
@@ -50,7 +49,7 @@ class CategoryResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-folder';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-folder';
 
     protected static ?string $recordRouteKeyName = 'id';
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Novius\LaravelFilamentNews\Filament\Resources\TagResource\Pages;
+namespace Novius\LaravelFilamentNews\Filament\Resources\Posts\Pages;
 
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
@@ -10,11 +10,11 @@ use Filament\Resources\Pages\ViewRecord;
 use Novius\LaravelFilamentActionPreview\Filament\Actions\PreviewAction;
 use Novius\LaravelFilamentNews\Facades\News;
 
-class ViewTag extends ViewRecord
+class ViewPost extends ViewRecord
 {
     public static function getResource(): string
     {
-        return News::getTagResource();
+        return News::getPostResource();
     }
 
     protected function getHeaderActions(): array

@@ -1,6 +1,6 @@
 <?php
 
-namespace Novius\LaravelFilamentNews\Filament\Resources\PostResource\Pages;
+namespace Novius\LaravelFilamentNews\Filament\Resources\Posts\Pages;
 
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
