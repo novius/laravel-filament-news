@@ -31,7 +31,7 @@ use Novius\LaravelFilamentNews\Filament\Resources\Categories\Pages\ListCategory;
 use Novius\LaravelFilamentNews\Filament\Resources\Categories\Pages\ViewCategory;
 use Novius\LaravelFilamentNews\Filament\Resources\Categories\RelationManagers\PostsRelationManager;
 use Novius\LaravelFilamentNews\Models\NewsCategory;
-use Novius\LaravelFilamentPublishable\Filament\Tables\Actions\PublicationBulkAction;
+use Novius\LaravelFilamentPublishable\Filament\Actions\PublicationBulkAction;
 use Novius\LaravelFilamentPublishable\Filament\Tables\Filters\PublicationStatusFilter;
 use Novius\LaravelFilamentSlug\Filament\Forms\Components\Slug;
 use Novius\LaravelFilamentTranslatable\Filament\Forms\Components\Locale;
