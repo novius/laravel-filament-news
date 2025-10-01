@@ -2,6 +2,7 @@
 
 namespace Novius\LaravelFilamentNews\Filament\Resources\Categories;
 
+use BackedEnum;
 use Exception;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
@@ -22,7 +23,7 @@ use Filament\Tables\Enums\RecordActionsPosition;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Unique;
-use Novius\LaravelFilamentActionPreview\Filament\Tables\Actions\PreviewAction;
+use Novius\LaravelFilamentActionPreview\Filament\Actions\PreviewAction;
 use Novius\LaravelFilamentNews\Facades\News;
 use Novius\LaravelFilamentNews\Filament\Resources\Categories\Pages\CreateCategory;
 use Novius\LaravelFilamentNews\Filament\Resources\Categories\Pages\EditCategory;
@@ -49,7 +50,7 @@ class CategoryResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-folder';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-folder';
 
     protected static ?string $recordRouteKeyName = 'id';
 
