@@ -5,7 +5,6 @@ namespace Novius\LaravelFilamentNews\Filament\Resources\Categories\RelationManag
 use Filament\Actions\ViewAction;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Enums\RecordActionsPosition;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Novius\LaravelFilamentNews\Filament\Resources\Posts\PostResource;
@@ -46,6 +45,6 @@ class PostsRelationManager extends RelationManager
             ->recordActions([
                 ViewAction::make()
                     ->url(fn (NewsPost $record) => PostResource::getUrl('view', ['record' => $record])),
-            ], RecordActionsPosition::BeforeColumns);
+            ]);
     }
 }

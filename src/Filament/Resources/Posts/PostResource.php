@@ -26,7 +26,6 @@ use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
-use Filament\Tables\Enums\RecordActionsPosition;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -261,7 +260,7 @@ class PostResource extends Resource
                     PreviewAction::make(),
                     ViewAction::make(),
                 ]),
-            ], RecordActionsPosition::BeforeColumns)
+            ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     PublicationBulkAction::make(),
