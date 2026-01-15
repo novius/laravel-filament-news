@@ -63,10 +63,8 @@ class NewsTag extends Model
     protected static function booted(): void
     {
         static::saving(static function ($tag) {
-            $locales = config('laravel-filament-news.locales', []);
-
-            if (empty($tag->locale) && count($locales) === 1) {
-                $tag->locale = array_key_first($locales);
+            if (empty($tag->locale) && News::locales()->count() === 1) {
+                $tag->locale = News::locales()->first()->code;
             }
         });
     }
