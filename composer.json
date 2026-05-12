@@ -22,21 +22,19 @@
     "require": {
         "php": ">=8.2",
         "filament/filament": "^4.0 | ^5.0",
-        "laravel/framework": "^11.0 | ^12.0",
         "novius/laravel-filament-action-preview": "^1.0.0",
         "novius/laravel-filament-publishable": "^1.0.0",
         "novius/laravel-filament-slug": "^1.0.0",
         "novius/laravel-filament-translatable": "^1.0.0",
         "novius/laravel-linkable": "^2.0.0",
         "novius/laravel-meta": "^1.2.0",
-        "spatie/laravel-sluggable": "^3.4"
+        "spatie/laravel-sluggable": "^3.4 | ^4.0"
     },
     "require-dev": {
         "larastan/larastan": "^2.0 | ^3.0",
         "laravel-lang/publisher": "^16.6",
         "laravel/pint": "^1.13",
-        "orchestra/testbench": "^v9.2.0 | ^v10.1.0",
-        "pestphp/pest": "^2.34 | ^v3.7.4"
+        "orchestra/testbench": "^9.0 | ^10.0 | ^11.0"
     },
     "autoload": {
         "psr-4": {
@@ -66,9 +64,6 @@
         ],
         "lint": [
             "@composer cs-fix -- --test"
-        ],
-        "test": [
-            "vendor/bin/pest"
         ],
         "phpstan": [
             "vendor/bin/phpstan analyse -c phpstan.dist.neon --memory-limit 1G"

@@ -1,22 +1,29 @@
 <?php
 
+use Novius\LaravelFilamentNews\Filament\Resources\Categories\CategoryResource;
+use Novius\LaravelFilamentNews\Filament\Resources\Posts\PostResource;
+use Novius\LaravelFilamentNews\Filament\Resources\Tags\TagResource;
+use Novius\LaravelFilamentNews\Models\NewsCategory;
+use Novius\LaravelFilamentNews\Models\NewsPost;
+use Novius\LaravelFilamentNews\Models\NewsTag;
+
 return [
     /*
      * Resources used to manage your posts.
      */
     'resources' => [
-        'post' => \Novius\LaravelFilamentNews\Filament\Resources\Posts\PostResource::class,
-        'category' => \Novius\LaravelFilamentNews\Filament\Resources\Categories\CategoryResource::class,
-        'tag' => \Novius\LaravelFilamentNews\Filament\Resources\Tags\TagResource::class,
+        'post' => PostResource::class,
+        'category' => CategoryResource::class,
+        'tag' => TagResource::class,
     ],
 
     /*
      * Models used to manage your posts.
      */
     'models' => [
-        'post' => \Novius\LaravelFilamentNews\Models\NewsPost::class,
-        'category' => \Novius\LaravelFilamentNews\Models\NewsCategory::class,
-        'tag' => \Novius\LaravelFilamentNews\Models\NewsTag::class,
+        'post' => NewsPost::class,
+        'category' => NewsCategory::class,
+        'tag' => NewsTag::class,
     ],
 
     // If you want to restrict the list of possible locals. By default, uses all the locals installed

@@ -86,7 +86,9 @@ class NewsPost extends Model
     use HasFactory;
     use HasMeta;
     use HasSlug;
-    use Linkable;
+    use Linkable {
+        Linkable::resolveRouteBinding insteadof HasSlug;
+    }
     use Publishable;
     use SoftDeletes;
     use Translatable;
