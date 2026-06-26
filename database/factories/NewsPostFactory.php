@@ -3,6 +3,7 @@
 namespace Novius\LaravelFilamentNews\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Novius\LaravelFilamentNews\Facades\News;
 use Novius\LaravelFilamentNews\Models\NewsPost;
 
 /**
@@ -10,10 +11,10 @@ use Novius\LaravelFilamentNews\Models\NewsPost;
  */
 class NewsPostFactory extends Factory
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected $model = NewsPost::class;
+    public function modelName(): string
+    {
+        return News::getPostModel();
+    }
 
     /**
      * Define the model's default state.
