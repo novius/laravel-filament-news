@@ -65,6 +65,7 @@ php artisan vendor:publish --provider="Novius\LaravelFilamentNews\LaravelFilamen
 This will allow you to:  
 * define the name of the routes and their parameter
 * override resource or model classes
+* define the navigation group of the resources (none by default)
 * define locales used
 
 ```php
@@ -88,6 +89,12 @@ return [
         'category' => \Novius\LaravelFilamentNews\Models\NewsCategory::class,
         'tag' => \Novius\LaravelFilamentNews\Models\NewsTag::class,
     ],
+
+    /*
+     * Navigation group in which the news resources are displayed. By default, no group.
+     * Can be a string (a translation key or a label) or an enum.
+     */
+    'navigation_group' => null,
 
     // If you want to restrict the list of possible locals. By default, uses all the locals installed
     'locales' => [
@@ -150,20 +157,20 @@ php artisan vendor:publish --provider="Novius\LaravelFilamentNews\LaravelFilamen
 php artisan vendor:publish --provider="Novius\LaravelFilamentNews\LaravelFilamentNewsServiceProvider" --tag="lang"
 ```
 
-## Testing
-
-Run the tests with:
-
-```bash
-composer test
-```
-
 ## Lint
 
 Lint your code with Laravel Pint using:
 
 ```bash
 composer lint
+```
+
+## Static analysis
+
+Analyse your code with PHPStan using:
+
+```bash
+composer analyse
 ```
 
 ## Licence

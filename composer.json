@@ -59,14 +59,14 @@
         }
     },
     "scripts": {
-        "cs-fix": [
-            "./vendor/bin/pint -v"
-        ],
         "lint": [
-            "@composer cs-fix -- --test"
+            "vendor/bin/pint --parallel"
         ],
-        "phpstan": [
-            "vendor/bin/phpstan analyse -c phpstan.dist.neon --memory-limit 1G"
+        "lint:check": [
+            "vendor/bin/pint --parallel --test"
+        ],
+        "analyse": [
+            "vendor/bin/phpstan analyse --memory-limit 1G"
         ],
         "post-autoload-dump": [
             "@clear",

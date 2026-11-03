@@ -26,6 +26,12 @@ return [
         'tag' => NewsTag::class,
     ],
 
+    /*
+     * Navigation group in which the news resources are displayed. By default, no group.
+     * Can be a string (a translation key or a label) or an enum.
+     */
+    'navigation_group' => null,
+
     // If you want to restrict the list of possible locals. By default, uses all the locals installed
     'locales' => [
         // 'en',

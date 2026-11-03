@@ -53,6 +53,7 @@ use Novius\LaravelFilamentTranslatable\Filament\Tables\Columns\LocaleColumn;
 use Novius\LaravelFilamentTranslatable\Filament\Tables\Columns\TranslationsColumn;
 use Novius\LaravelFilamentTranslatable\Filament\Tables\Filters\LocaleFilter;
 use Novius\LaravelMeta\Traits\FilamentResourceHasMeta;
+use UnitEnum;
 
 class PostResource extends Resource
 {
@@ -78,9 +79,14 @@ class PostResource extends Resource
         return trans('laravel-filament-news::crud-post.resource_label');
     }
 
-    public static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): string|UnitEnum|null
     {
-        return trans('laravel-filament-news::news.navigation_group');
+        return News::getNavigationGroup();
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return trans('laravel-filament-news::news.navigation_label');
     }
 
     public static function form(Schema $schema): Schema

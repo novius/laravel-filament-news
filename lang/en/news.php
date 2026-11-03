@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'navigation_group' => 'News',
+    'navigation_label' => 'News',
 ];

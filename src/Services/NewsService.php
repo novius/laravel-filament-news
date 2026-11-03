@@ -12,6 +12,7 @@ use Novius\LaravelFilamentNews\Filament\Resources\Tags\TagResource;
 use Novius\LaravelFilamentNews\Models\NewsCategory;
 use Novius\LaravelFilamentNews\Models\NewsPost;
 use Novius\LaravelFilamentNews\Models\NewsTag;
+use UnitEnum;
 
 class NewsService
 {
@@ -26,6 +27,13 @@ class NewsService
 
         return Locales::installed()
             ->when(! empty($locales), fn (Collection $collection) => $collection->filter(fn (LocaleData $localeData) => in_array($localeData->code, $locales, true)));
+    }
+
+    public function getNavigationGroup(): string|UnitEnum|null
+    {
+        $group = Arr::get($this->config, 'navigation_group');
+
+        return is_string($group) ? trans($group) : $group;
     }
 
     /** @return class-string<NewsPost> */
